@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+             version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
+    <persistence-unit name="todos" transaction-type="RESOURCE_LOCAL">
+        <class>de.vogella.jpa.simple.model.Todo</class>
+        <class>net.ensode.glassfishbook.jpaintro.entity.Customer</class>
+        <class>net.ensode.glassfishbook.jpaintro.entity.LoginInfo</class>
+        <class>net.ensode.glassfishbook.jpaintro.entity.Order</class>
+        <class>net.ensode.glassfishbook.jpaintro.entity.Item</class>
+        <class>net.ensode.glassfishbook.jpaintro.entity.OrderItem</class>
+
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+
+
+        <properties>
+            <property productName="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
+            <property productName="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/BORAJI?useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC" />
+            <property productName="javax.persistence.jdbc.user" value="root" />
+            <property productName="javax.persistence.jdbc.password" value="pegasus12" />
+            <property productName="hibernate.show_sql" value="true" />
+            <property productName="hibernate.hbm2ddl.auto" value="create" />
+            <property
+                    productName="javax.persistence.schema-generation.database.action"
+                    value="drop-and-create"/>
+            <property productName="hibernate.format_sql" value="true"/>
+            <property productName="hibernate.use_sql_comments" value="true"/>
+        </properties>
+
+    </persistence-unit>
+
+    <persistence-unit name="HelloWorldPU">
+        <jta-data-source>myDS</jta-data-source>
+        <class>org.jpwh.model.helloworld.Message</class>
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+        <properties>
+            <property
+                    name="javax.persistence.schema-generation.database.action"
+                    value="drop-and-create"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.use_sql_comments" value="true"/>
+        </properties>
+    </persistence-unit>
+</persistence>
