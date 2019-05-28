@@ -1,5 +1,7 @@
 package com.boostmedia.aktiendepot.model;
 
+import com.fasterxml.jackson.annotation.*;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -9,23 +11,27 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "wkn")
 public class Aktie implements Serializable {
 
     @Id
     private String wkn;
     private String name;
     private int anzahl;
-    private LocalDateTime kaufDatum;
-    private LocalDateTime verkaufDatum;
-    private float kaufPreis;
-    private float kaufPreisTotal;
-    private float verkaufPreis;
-    private float verkaufPreisTotal;
-    private float gewinnProAktie;
-    private float gewinnTotal;
+    private LocalDateTime kaufdatum;
+    private LocalDateTime verkaufdatum;
+    private float kaufpreis;
+    private float kaufpreistotal;
+    private float verkaufpreis;
+    private float verkaufpreistotal;
+    private float gewinnproaktie;
+    private float gewinntotal;
+
+    //@JsonManagedReference
     @OneToMany(mappedBy = "aktie")
     private Set<Dividente> dividente = new HashSet<Dividente>();
-    private float aktuellerPreis;
 
     public Aktie(){}
 
@@ -33,9 +39,14 @@ public class Aktie implements Serializable {
         this.wkn = wkn;
         this.name = name;
         this.anzahl = anzahl;
-        this.kaufDatum = kaufDatum;
-        this.kaufPreis = kaufPreis;
-        this.kaufPreisTotal = kaufPreisTotal;
+        this.kaufdatum = kaufDatum;
+        this.kaufpreis = kaufPreis;
+        this.kaufpreistotal = kaufPreisTotal;
+        this.gewinnproaktie = 0f;
+        this.gewinntotal = 0f;
+        this.verkaufpreis = 0f;
+        this.verkaufpreistotal = 0f;
+        this.verkaufdatum = null;
     }
 
 
@@ -68,68 +79,68 @@ public class Aktie implements Serializable {
         this.anzahl = anzahl;
     }
 
-    public LocalDateTime getKaufDatum() {
-        return kaufDatum;
+    public LocalDateTime getKaufdatum() {
+        return kaufdatum;
     }
 
-    public void setKaufDatum(LocalDateTime kaufDatum) {
-        this.kaufDatum = kaufDatum;
+    public void setKaufdatum(LocalDateTime kaufdatum) {
+        this.kaufdatum = kaufdatum;
     }
 
-    public LocalDateTime getVerkaufDatum() {
-        return verkaufDatum;
+    public LocalDateTime getVerkaufdatum() {
+        return verkaufdatum;
     }
 
-    public void setVerkaufDatum(LocalDateTime verkaufDatum) {
-        this.verkaufDatum = verkaufDatum;
+    public void setVerkaufdatum(LocalDateTime verkaufdatum) {
+        this.verkaufdatum = verkaufdatum;
     }
 
-    public float getKaufPreis() {
-        return kaufPreis;
+    public float getKaufpreis() {
+        return kaufpreis;
     }
 
-    public void setKaufPreis(float kaufPreis) {
-        this.kaufPreis = kaufPreis;
+    public void setKaufpreis(float kaufpreis) {
+        this.kaufpreis = kaufpreis;
     }
 
-    public float getKaufPreisTotal() {
-        return kaufPreisTotal;
+    public float getKaufpreistotal() {
+        return kaufpreistotal;
     }
 
-    public void setKaufPreisTotal(float kaufPreisTotal) {
-        this.kaufPreisTotal = kaufPreisTotal;
+    public void setKaufpreistotal(float kaufpreistotal) {
+        this.kaufpreistotal = kaufpreistotal;
     }
 
-    public float getVerkaufPreis() {
-        return verkaufPreis;
+    public float getVerkaufpreis() {
+        return verkaufpreis;
     }
 
-    public void setVerkaufPreis(float verkaufPreis) {
-        this.verkaufPreis = verkaufPreis;
+    public void setVerkaufpreis(float verkaufpreis) {
+        this.verkaufpreis = verkaufpreis;
     }
 
-    public float getVerkaufPreisTotal() {
-        return verkaufPreisTotal;
+    public float getVerkaufpreistotal() {
+        return verkaufpreistotal;
     }
 
-    public void setVerkaufPreisTotal(float verkaufPreisTotal) {
-        this.verkaufPreisTotal = verkaufPreisTotal;
+    public void setVerkaufpreistotal(float verkaufpreistotal) {
+        this.verkaufpreistotal = verkaufpreistotal;
     }
 
-    public float getGewinnProAktie() {
-        return gewinnProAktie;
+    public float getGewinnproaktie() {
+        return gewinnproaktie;
     }
 
-    public void setGewinnProAktie(float gewinnProAktie) {
-        this.gewinnProAktie = gewinnProAktie;
+    public void setGewinnproaktie(float gewinnproaktie) {
+        this.gewinnproaktie = gewinnproaktie;
     }
 
-    public float getGewinnTotal() {
-        return gewinnTotal;
+    public float getGewinntotal() {
+        return gewinntotal;
     }
 
-    public void setGewinnTotal(float gewinnTotal) {
-        this.gewinnTotal = gewinnTotal;
+    public void setGewinntotal(float gewinntotal) {
+        this.gewinntotal = gewinntotal;
     }
 
     public Set<Dividente> getDividente() {
@@ -140,13 +151,7 @@ public class Aktie implements Serializable {
         this.dividente = dividente;
     }
 
-    public float getAktuellerPreis() {
-        return aktuellerPreis;
-    }
 
-    public void setAktuellerPreis(float aktuellerPreis) {
-        this.aktuellerPreis = aktuellerPreis;
-    }
 
     public boolean equals(Object o){
         Aktie other = (Aktie)o;
